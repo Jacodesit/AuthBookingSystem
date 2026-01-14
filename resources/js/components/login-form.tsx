@@ -7,7 +7,7 @@ export default function LoginForm() {
     const [openRegister, setOpenRegister] = useState(false);
 
     return (
-        <div>
+        <div className=''>
             <form>
                 <div className="flex flex-col gap-2">
                     {/* Email */}
