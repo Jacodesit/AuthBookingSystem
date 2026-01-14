@@ -808,6 +808,7 @@
 // }
 import Header from "@/components/heading"
 import HeroSection from "@/components/hero-section"
+import Login from "@/components/login"
 
 type pageProps = {
     name: string
@@ -815,16 +816,16 @@ type pageProps = {
 
 export default function Welcome({name}:pageProps) {
     return (
-        <main className="h-screen flex">
+        <main className="h-screen lg:flex">
             {/* Hero Section */}
-            <section className="w-2/3 border-r">
+            <section className="hidden lg:w-2/3 lg:block">
                 <Header name={name} />
                 <HeroSection />
             </section>
 
             {/* Login Section */}
-            <section className="w-1/3">
-                login
+            <section className="lg:w-1/3">
+                <Login name={name} />
             </section>
         </main>
     )

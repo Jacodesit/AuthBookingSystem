@@ -7,8 +7,8 @@ type pageProps = {
 export default function Header({name}:pageProps) {
     const currentPage = window.location.pathname
     return (
-        <header className={`px-25 py-5 fixed
-            ${currentPage === '/' ? 'w-2/3' : 'w-full'}
+        <header className={`lg:px-25 lg:py-5 lg:fixed z-100
+                ${currentPage === '/' ? 'lg:w-2/3' : 'w-full'}
             `}>
             <nav>
                 <Link
