@@ -1,5 +1,4 @@
 export default function HeroSection() {
-    const headline = 'Book Smarter, Not Harder'
     const subtext = 'Reserve your spot in seconds. Manage your bookings anytime, anywhere, with ease and confidence.'
     return (
         <section className="min-h-screen w-full relative">
@@ -54,7 +53,7 @@ export default function HeroSection() {
         {/* Hero Section Content */}
         <div className="relative z-50">
             <div className="px-25 h-screen flex justify-center flex-col">
-                <h1 className="text-9xl font-semibold font-[Poppins]">{headline}</h1>
+                <h1 className="text-9xl font-semibold font-[Poppins]">Book <span className="text-gray-800">Smarter</span>, Not <span className="text-gray-800">Harder</span></h1>
                 <p className="text-lg text-gray-500">{subtext}</p>
             </div>
         </div>

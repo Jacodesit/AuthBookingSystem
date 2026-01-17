@@ -1,4 +1,5 @@
 import { useForm } from "@inertiajs/react"
+import { toast } from 'react-hot-toast'
 
 export default function RegisterForm() {
     const { data, setData, post, errors, processing} = useForm({
@@ -10,8 +11,8 @@ export default function RegisterForm() {
 
     const submit = (e:React.FormEvent) => {
         e.preventDefault();
-        post('/register', {
-        })
+        post('/register')
+        toast.success('Registered successfully!');
     }
 
     return (
@@ -99,7 +100,7 @@ export default function RegisterForm() {
 
                 <button
                     disabled={processing}
-                    className="p-3 border w-full rounded-md mt-3 font-semibold flex items-center justify-center gap-2 bg-black text-white transition-all duration-300 hover:bg-gray-800 hover:text-white hover:cursor-pointer"
+                    className="p-3 border w-full rounded-md mt-3 font-semibold flex items-center justify-center gap-2 bg-gray-800  text-white transition-all duration-300 hover:bg-black hover:text-white hover:cursor-pointer"
                 >
                     {processing ? 'Signing up...' : 'Sign up'}
                 </button>

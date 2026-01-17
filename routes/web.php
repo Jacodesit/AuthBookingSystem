@@ -7,17 +7,7 @@ use Laravel\Fortify\Features;
 
 Route::get('/', action: fn() => Inertia::render('welcome'));
 Route::resource('bookings', BookingController::class)->except('index');
+Route::get('/home', fn() => Inertia::render('Mainpages/home'))->middleware('auth');
 
-// Route::get('/', function () {
-//     return Inertia::render('welcome', [
-//         'canRegister' => Features::enabled(Features::registration()),
-//     ]);
-// })->name('home');
-
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::get('dashboard', function () {
-//         return Inertia::render('dashboard');
-//     })->name('dashboard');
-// });
 
 require __DIR__.'/settings.php';
