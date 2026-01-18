@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
-use App\Http\Requests\StoreBookingRequest;
-use App\Http\Requests\UpdateBookingRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -27,9 +27,20 @@ class BookingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBookingRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'booking_title' => 'required|max:255',
+            'booking_date' => 'required|date',
+            'booking_time' =>'required|date_format:H:i',
+            'notes' => 'required|string|max:1000',
+        ]);
+
+        $validated['user_id'] = Auth::id();
+
+        Booking::create($validated);
+
+        return redirect('/home');
     }
 
     /**
@@ -51,7 +62,7 @@ class BookingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookingRequest $request, Booking $booking)
+    public function update(Request $request, Booking $booking)
     {
         //
     }

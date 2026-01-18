@@ -9,9 +9,9 @@ type LayoutProps = {
 
 export default function AuthLayout({children, name}:LayoutProps) {
     return (
-        <div>
+        <div className=''>
             <Header name={name}/>
-            <main className='px-25 pt-25 pb-10'>
+            <main className='px-25 pt-25 pb-17'>
                 {children}
             </main>
         </div>
