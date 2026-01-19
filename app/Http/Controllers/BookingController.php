@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class BookingController extends Controller
 {
@@ -13,6 +14,10 @@ class BookingController extends Controller
      */
     public function index()
     {
+        $bookings = auth()->user()->bookings()->latest()->get();
+        return Inertia::render('Mainpages/bookings', [
+            'bookings' => $bookings
+        ]);
 
     }
 
@@ -48,7 +53,7 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        //
+
     }
 
     /**

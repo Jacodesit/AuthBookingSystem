@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 import BarsThree from "@/components/bars-three";
 import Arrow from "@/components/arrow-icon";
 
@@ -9,7 +11,9 @@ type pageProps = {
 export default function ViewCard({headline2, subtext2}:pageProps) {
 
     return (
-        <div>
+        <Link
+            href={'/view-bookings'}
+        >
             <div className=" h-full border p-25 rounded-md hover:cursor-pointer transform transition-all duration-300 hover:border-[#DC143C] hover:-translate-y-3">
                 <div className="flex items-center flex-col gap-5 text-center">
                     <div className="bg-[#DC143C] text-white p-3 rounded">
@@ -24,6 +28,6 @@ export default function ViewCard({headline2, subtext2}:pageProps) {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }

@@ -18,4 +18,8 @@ class Booking extends Model
         'status',
         'notes'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
