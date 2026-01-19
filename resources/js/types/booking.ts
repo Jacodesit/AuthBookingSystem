@@ -4,7 +4,7 @@ export type Booking = {
     booking_time: string
     booking_date: string | null
     notes: string
-    status: 'pending' | 'confirmed' | 'cancelled';
+    status: 'pending' | 'completed' | 'cancelled';
     name: string;
     password: string;
 }
