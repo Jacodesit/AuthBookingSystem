@@ -1,13 +1,79 @@
-export default function ActionBtns() {
-    return (
-        <div className="flex gap-2">
-            <button className="px-4 py-2 transition-all duration-300 hover:text-red-700 hover:cursor-pointer">
-                Cancel
-            </button>
+import { router } from "@inertiajs/react"
+import { useRoute } from '../../../vendor/tightenco/ziggy'
 
-            <button className="bg-green-600 text-white px-4 py-2 rounded transition-all duration-300 hover:bg-green-700 hover:cursor-pointer">
-                Complete
-            </button>
+import type { Booking } from "@/types/booking"
+import toast from "react-hot-toast"
+
+type pageProps = {
+    booking: Booking
+    onSuccess: () => void
+}
+
+export default function ActionBtns({booking, onSuccess}:pageProps) {
+    const route = useRoute();
+
+    const handleCancel = (bookingId: number) => {
+        router.put(
+            route('booking.update.status', {booking: bookingId}),
+            {
+                status: 'cancelled'
+            },
+            {
+                onSuccess: () => {
+                    onSuccess()
+                    toast.success('Booking has been cancelled!');
+                }
+            }
+        )
+    }
+
+    const handleComplete = (bookingId: number) => {
+        router.put(
+            route('booking.update.status', {booking: bookingId}),
+            {
+                status: 'completed'
+            },
+            {
+                onSuccess: () => {
+                    onSuccess()
+                    toast.success('Booking has been completed');
+                }
+            }
+        )
+    }
+
+    return (
+        <div>
+            {booking.status === 'completed' || booking.status === 'cancelled' ?
+                <div
+                    className={`w-full p-3 rounded text-xs text-center
+                        ${booking.status === 'cancelled' ? 'bg-red-200 border border-red-700 text-red-700 ' : '' }
+                        ${booking.status === 'completed' ? 'bg-green-200 border border-green-700 text-green-700 ' : ''}
+                    `}
+                >
+                    {booking.status === 'cancelled' ? <p>This booking cannot be completed because its already <span className="font-bold">{booking.status}</span></p> : ''}
+                    {booking.status === 'completed' ? <p>This booking cannot be cancelled because its already <span className="font-bold">{booking.status}</span></p> : ''}
+                </div>
+
+                :
+                <div
+                    className='flex gap-2'
+                >
+                    <button
+                        onClick={() => handleCancel(booking.id)}
+                        className="px-4 py-2 transition-all duration-300 hover:text-red-700 hover:cursor-pointer"
+                    >
+                        Cancel Booking
+                    </button>
+
+                    <button
+                        onClick={() => handleComplete(booking.id)}
+                        className="bg-green-600 text-white px-4 py-2 rounded transition-all duration-300 hover:bg-green-700 hover:cursor-pointer"
+                    >
+                        Complete
+                    </button>
+                </div>
+            }
         </div>
     )
 }

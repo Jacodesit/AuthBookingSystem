@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast'
 import { useRoute } from '../../../vendor/tightenco/ziggy'
 
 import { LogIn } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 
 import type { Booking } from '@/types/booking';
 import type { Auth } from '@/types/booking';
@@ -17,10 +18,15 @@ export default function EditForm({onSuccess, booking}:pageProps) {
     const currentPath = window.location.pathname
     const route = useRoute();
 
+    const formatTime = (time?: string) => {
+        if (!time) return ''
+        return time.split(':').slice(0, 2).join(':')
+    }
+
     const { data, setData, put, errors, processing} = useForm({
         'booking_title': booking.booking_title,
         'booking_date' : booking.booking_date ?? '',
-        'booking_time' : booking.booking_date ?? '',
+        'booking_time' : formatTime(booking.booking_time ?? ''),
         'notes' : booking.notes
     })
 
@@ -130,7 +136,7 @@ export default function EditForm({onSuccess, booking}:pageProps) {
                     disabled={processing}
                     className="p-3 border w-full rounded-md mt-3 font-semibold flex items-center justify-center gap-2 bg-gray-800  text-white transition-all duration-300 hover:bg-black hover:text-white hover:cursor-pointer"
                 >
-                    {currentPath === '/' ? <LogIn size={15} /> : ''}
+                    {currentPath === '/' ? <LogIn size={15} /> : <RefreshCw size={15} />}
                     {processing ? 'Updating Booking...' : 'Update Now'}
                 </button>
             </form>

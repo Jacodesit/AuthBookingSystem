@@ -12,11 +12,15 @@ type pageProps = {
     formatDate: (date: string | null) => string
     formatTime: (time: string | null) => string
     statusClasses: Record<string, string>
+    onSuccess: () => void
 } & Auth
 
 export default function ViewDetailsBtn({booking, auth, formatDate, formatTime, statusClasses}:pageProps) {
     const [openModal, setOpenModal] = useState(false);
 
+    const handleSuccess = () => {
+        setOpenModal(false);
+    }
     return (
         <div>
             <button
@@ -34,6 +38,7 @@ export default function ViewDetailsBtn({booking, auth, formatDate, formatTime, s
                 formatDate={formatDate}
                 formatTime={formatTime}
                 statusClasses={statusClasses}
+                onSuccess={handleSuccess}
             />
         </div>
 

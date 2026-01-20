@@ -86,6 +86,7 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
                                         formatDate={formatDate}
                                         formatTime={formatTime}
                                         statusClasses={statusClasses}
+                                        onSuccess={onSuccess}
                                     />
                                     <EditButton
                                         onSuccess={onSuccess}

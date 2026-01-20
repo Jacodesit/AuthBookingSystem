@@ -8,6 +8,7 @@ use Laravel\Fortify\Features;
 Route::get('/', action: fn() => Inertia::render('welcome'));
 Route::resource('bookings', BookingController::class)->except('index');
 Route::get('/view-bookings', [BookingController::class, 'index']);
+Route::put('/bookings/{booking}/status', [BookingController::class, 'updateStatus'])->name('booking.update.status');
 Route::get('/home', fn() => Inertia::render('Mainpages/home'))->middleware('auth');
 
 

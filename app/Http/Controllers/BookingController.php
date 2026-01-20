@@ -6,6 +6,7 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class BookingController extends Controller
 {
@@ -76,6 +77,12 @@ class BookingController extends Controller
             'notes' => 'required|string|max:1000',
         ]);
 
+        $validated['booking_time'] = Carbon::createFromFormat(
+            'H:i',
+            $validated['booking_time']
+        )->format('H:i');
+
+
         $booking->update($validated);
 
         return redirect('/view-bookings');
@@ -87,5 +94,15 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         //
+    }
+
+    public function updateStatus(Request $request, Booking $booking) {
+        $validated = $request->validate([
+            'status' => 'required|in:pending,completed,cancelled'
+        ]);
+
+        $booking->update($validated);
+
+        return redirect('/view-bookings');
     }
 }

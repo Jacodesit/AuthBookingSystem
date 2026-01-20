@@ -20,7 +20,9 @@ export default function EditButton({booking, auth}:pageProps) {
     }
 
     return (
-        <div>
+        <div
+            className={`${booking.status !== 'pending' ? 'hidden' : 'block'}`}
+        >
             <button
                 onClick={() => setOpenModal(true)}
                 className="transition-all duration-300 hover:cursor-pointer"

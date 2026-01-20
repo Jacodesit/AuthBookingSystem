@@ -11,9 +11,10 @@ type pageProps = {
     formatDate: (date: string | null) => string
     formatTime: (time: string | null) => string
     statusClasses: Record<string, string>
+    onSuccess: () => void
 } & Auth
 
-export default function DetailsModals({openModal, booking, onClose, auth, formatDate, formatTime, statusClasses}:pageProps) {
+export default function DetailsModals({openModal, booking, onClose, auth, formatDate, formatTime, statusClasses, onSuccess}:pageProps) {
     if(!booking || !openModal) return null
 
     return (
@@ -69,8 +70,16 @@ export default function DetailsModals({openModal, booking, onClose, auth, format
                             </div>
                         </div>
 
-                        <div className="absolute bottom-0 right-0">
-                            <ActionBtns />
+                        <div
+                            // className="absolute bottom-0 right-0"
+                            className={`
+                                ${booking.status === 'pending' ? 'absolute bottom-0 right-0' : 'items-center mt-2'}
+                            `}
+                        >
+                            <ActionBtns
+                                booking={booking}
+                                onSuccess={onSuccess}
+                            />
                         </div>
                     </div>
                     {/*
