@@ -14,9 +14,10 @@ type pageProps = {
     bookings: Booking[]
     formatDate: (date: string | null) => string
     formatTime: (time: string | null) => string
+    onSuccess: () => void
 } & Auth
 
-export default function ViewBookings({name, auth}:pageProps) {
+export default function ViewBookings({name, auth, onSuccess}:pageProps) {
     const { bookings } = usePage<pageProps>().props
     // const route = useRoute();
 
@@ -86,7 +87,11 @@ export default function ViewBookings({name, auth}:pageProps) {
                                         formatTime={formatTime}
                                         statusClasses={statusClasses}
                                     />
-                                    <EditButton />
+                                    <EditButton
+                                        onSuccess={onSuccess}
+                                        booking={booking}
+                                        auth={auth}
+                                    />
                                 </div>
                             </div>
 

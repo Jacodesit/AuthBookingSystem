@@ -1,5 +1,6 @@
 import type { Booking } from "@/types/booking"
 import ModalHeader from "./modal-header"
+import ActionBtns from "./actions-btns"
 
 import type { Auth } from "@/types/booking"
 
@@ -31,34 +32,45 @@ export default function DetailsModals({openModal, booking, onClose, auth, format
                 <div className="w-1/2">
                     <ModalHeader onClose={onClose} />
 
-                    <div className="mt-10 flex flex-col gap-3">
-                        <div className="flex justify-between items-center border-b pb-2">
-                            <p className="text-xs text-gray-500">Name</p>
-                            <p className="text-sm">{auth.user?.name}</p>
+                    <div className="mt-10 flex flex-col relative h-[62vh]">
+                        <div className="flex flex-col gap-3">
+                            <div className="flex justify-between items-center border-b pb-2">
+                                <p className="text-xs text-gray-500">Name</p>
+                                <p className="text-sm font">{auth.user?.name}</p>
+                            </div>
+
+                            <div className="flex justify-between items-center border-b pb-2">
+                                <p className="text-xs text-gray-500">Booking Title</p>
+                                <p className="text-sm">{booking.booking_title}</p>
+                            </div>
+
+                            <div className="flex justify-between items-center border-b pb-2">
+                                <p className="text-xs text-gray-500">Booking Date & Time</p>
+                                <p className="text-sm">{formatDate(booking.booking_date)} at {formatTime(booking.booking_time)}</p>
+                            </div>
+
+                            <div className="flex justify-between items-center border-b pb-2">
+                                <p className="text-xs text-gray-500">Location</p>
+                                <p className="text-sm">Maldives</p>
+                            </div>
+
+                            <div className="flex justify-between items-center border-b pb-2">
+                                <p className="text-xs text-gray-500">Status</p>
+                                <p
+                                    className={`capitalize text-xs inline px-2 py-1 font-bold ${statusClasses[booking.status] ?? ''}`}
+                                    >
+                                        {booking.status}
+                                    </p>
+                            </div>
+
+                            <div className="flex flex-col gap-2 ">
+                                <p className="text-xs text-gray-500">Booking Notes</p>
+                                <p className="text-sm border h-46 p-2 rounded overflow-y-auto">{booking.notes}</p>
+                            </div>
                         </div>
 
-                        <div className="flex justify-between items-center border-b pb-2">
-                            <p className="text-xs text-gray-500">Booking Title</p>
-                            <p className="text-sm">{booking.booking_title}</p>
-                        </div>
-
-                        <div className="flex justify-between items-center border-b pb-2">
-                            <p className="text-xs text-gray-500">Booking Date & Time</p>
-                            <p className="text-sm">{formatDate(booking.booking_date)} at {formatTime(booking.booking_time)}</p>
-                        </div>
-
-                        <div className="flex justify-between items-center border-b pb-2">
-                            <p className="text-xs text-gray-500">Status</p>
-                            <p
-                                className={`capitalize text-xs inline px-2 py-1 font-bold ${statusClasses[booking.status] ?? ''}`}
-                                >
-                                    {booking.status}
-                                </p>
-                        </div>
-
-                        <div className="flex flex-col gap-2 ">
-                            <p className="text-xs text-gray-500">Booking Notes</p>
-                            <p className="text-sm">{booking.notes}</p>
+                        <div className="absolute bottom-0 right-0">
+                            <ActionBtns />
                         </div>
                     </div>
                     {/*

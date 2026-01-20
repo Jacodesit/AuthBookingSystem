@@ -69,7 +69,16 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        //
+        $validated = $request->validate([
+            'booking_title' => 'required|max:255',
+            'booking_date' => 'required|date',
+            'booking_time' =>'required|date_format:H:i',
+            'notes' => 'required|string|max:1000',
+        ]);
+
+        $booking->update($validated);
+
+        return redirect('/view-bookings');
     }
 
     /**
