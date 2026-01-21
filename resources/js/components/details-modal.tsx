@@ -73,7 +73,7 @@ export default function DetailsModals({openModal, booking, onClose, auth, format
                         <div
                             // className="absolute bottom-0 right-0"
                             className={`
-                                ${booking.status === 'pending' ? 'absolute bottom-0 right-0' : 'items-center mt-2'}
+                                ${booking.status === 'pending' ? 'mt-2' : 'items-center mt-2'}
                             `}
                         >
                             <ActionBtns

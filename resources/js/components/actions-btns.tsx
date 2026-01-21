@@ -1,8 +1,10 @@
 import { router } from "@inertiajs/react"
 import { useRoute } from '../../../vendor/tightenco/ziggy'
+import toast from "react-hot-toast"
+
+import Trash from "./trash-icon"
 
 import type { Booking } from "@/types/booking"
-import toast from "react-hot-toast"
 
 type pageProps = {
     booking: Booking
@@ -42,8 +44,17 @@ export default function ActionBtns({booking, onSuccess}:pageProps) {
         )
     }
 
+    const handleDelete = (bookingId: number) => {
+        router.delete(route('bookings.destroy', {booking: bookingId}), {
+            onSuccess: () => {
+                onSuccess()
+                toast.success('Booking deleted!');
+            }
+        })
+    }
+
     return (
-        <div>
+        <div className="text-sm">
             {booking.status === 'completed' || booking.status === 'cancelled' ?
                 <div
                     className={`w-full p-3 rounded text-xs text-center
@@ -57,21 +68,30 @@ export default function ActionBtns({booking, onSuccess}:pageProps) {
 
                 :
                 <div
-                    className='flex gap-2'
+                    className='flex justify-between items-center'
                 >
-                    <button
-                        onClick={() => handleCancel(booking.id)}
-                        className="px-4 py-2 transition-all duration-300 hover:text-red-700 hover:cursor-pointer"
-                    >
-                        Cancel Booking
-                    </button>
 
                     <button
-                        onClick={() => handleComplete(booking.id)}
-                        className="bg-green-600 text-white px-4 py-2 rounded transition-all duration-300 hover:bg-green-700 hover:cursor-pointer"
+                        onClick={() => handleDelete(booking.id)}
                     >
-                        Complete
+                        <Trash />
                     </button>
+
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => handleCancel(booking.id)}
+                            className="px-4 py-2 transition-all duration-300 hover:text-red-700 hover:cursor-pointer"
+                        >
+                            Cancel Booking
+                        </button>
+
+                        <button
+                            onClick={() => handleComplete(booking.id)}
+                            className="bg-green-600 text-white px-4 py-2 rounded transition-all duration-300 hover:bg-green-700 hover:cursor-pointer"
+                        >
+                            Complete
+                        </button>
+                    </div>
                 </div>
             }
         </div>

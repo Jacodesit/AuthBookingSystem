@@ -1,10 +1,14 @@
 import { usePage } from "@inertiajs/react"
+import { useState } from "react"
+
 import AuthLayout from "@/layouts/authenticated-layout"
 // import { useRoute } from '../../../../vendor/tightenco/ziggy'
 
 import CalendarIcon from "@/components/calendar-icon"
 import EditButton from "@/components/edit-btn"
 import ViewDetailsBtn from "@/components/view-details-btn"
+import PlusIcon from "@/components/plus-icon"
+import AddBookingModal from "@/components/add-modal"
 
 import type { Booking } from "@/types/booking"
 import type { Auth } from "@/types/booking"
@@ -48,58 +52,86 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
         cancelled: 'text-red-600 bg-red-200 rounded'
     }
 
+    const [openModal, setOpenModal] = useState(false)
+
     return (
         <AuthLayout name={name}>
-            <div className="mb-10">
-                <div className="flex items-center gap-1 text-3xl">
+            <div className="mb-10 flex justify-between items-center">
+                <div className="flex flex-col gap-1 text-3xl">
                     <p className="font-[Poppins] text-[#DC143C] font-semibold">{headline}</p>
+                    <p className="text-sm text-gray-500">{subtext}</p>
                 </div>
 
                 <div>
-                    <p className="text-sm text-gray-500">{subtext}</p>
+                    <button
+                        onClick={() => setOpenModal(true)}
+                        className="flex items-center gap-2 px-5 py-2 border rounded transition-all duration-300 hover:bg-black hover:text-white hover:cursor-pointer"
+                    >
+                        <PlusIcon />
+                        Add booking
+                    </button>
                 </div>
             </div>
-            <div className="grid grid-cols-3 gap-3">
-                {bookings.map(booking => (
-                    <div
-                        key={booking.id}
-                        className="shadow rounded-md flex bg-[#FAFAFA] p-2"
-                    >
-                        <div className="flex justify-center items-center px-6">
-                            <CalendarIcon />
-                        </div>
-                        <div className="py-4 w-full pr-5">
-                            <p className="text-lg font-medium font-[Poppins] mb-2">{booking.booking_title}</p>
-                            <p className="text-xs">{formatDate(booking.booking_date)} at {formatTime(booking.booking_time)}</p>
-                            <hr className="my-3" />
-                            <div className="flex justify-between items-center">
-                                <p className={`capitalize text-xs inline px-2 py-1 font-bold
-                                    ${statusClasses[booking.status] ?? 'text-gray-600 bg-gray-300'}`}
-                                >
-                                    {booking.status}
-                                </p>
 
-                                <div className="flex gap-2">
-                                    <ViewDetailsBtn
-                                        booking={booking}
-                                        auth={auth}
-                                        formatDate={formatDate}
-                                        formatTime={formatTime}
-                                        statusClasses={statusClasses}
-                                        onSuccess={onSuccess}
-                                    />
-                                    <EditButton
-                                        onSuccess={onSuccess}
-                                        booking={booking}
-                                        auth={auth}
-                                    />
+            <div>
+                {bookings.length === 0 ?
+                    <div className="h-96 flex items-center justify-center flex-col gap-5">
+                        <img
+                            src='/Empty/no-booking.svg'
+                            alt="No-booking"
+                            className="h-50 flex opacity-50"
+                        />
+                        <p className="text-gray-500 items-center text-sm">You dont have a booking yet!</p>
+                    </div>
+                    :
+                    <div className="grid grid-cols-3 gap-3">
+                        {bookings.map(booking => (
+                            <div
+                                key={booking.id}
+                                className="shadow rounded-md flex bg-[#FAFAFA] p-2"
+                            >
+                                <div className="flex justify-center items-center px-6">
+                                    <CalendarIcon />
+                                </div>
+                                <div className="py-4 w-full pr-5">
+                                    <p className="text-lg font-medium font-[Poppins] mb-2">{booking.booking_title}</p>
+                                    <p className="text-xs">{formatDate(booking.booking_date)} at {formatTime(booking.booking_time)}</p>
+                                    <hr className="my-3" />
+                                    <div className="flex justify-between items-center">
+                                        <p className={`capitalize text-xs inline px-2 py-1 font-bold
+                                            ${statusClasses[booking.status] ?? 'text-gray-600 bg-gray-300'}`}
+                                        >
+                                            {booking.status}
+                                        </p>
+
+                                        <div className="flex gap-2">
+                                            <ViewDetailsBtn
+                                                booking={booking}
+                                                auth={auth}
+                                                formatDate={formatDate}
+                                                formatTime={formatTime}
+                                                statusClasses={statusClasses}
+                                                onSuccess={onSuccess}
+                                            />
+                                            <EditButton
+                                                onSuccess={onSuccess}
+                                                booking={booking}
+                                                auth={auth}
+                                            />
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-
-                        </div>
+                        ))}
                     </div>
-                ))}
+                }
             </div>
+            <AddBookingModal
+                openModal={openModal}
+                onClose={() => setOpenModal(true)}
+                onSuccess={onSuccess}
+            />
         </AuthLayout>
     )
 }
