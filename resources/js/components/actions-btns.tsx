@@ -55,29 +55,22 @@ export default function ActionBtns({booking, onSuccess}:pageProps) {
 
     return (
         <div className="text-sm">
-            {booking.status === 'completed' || booking.status === 'cancelled' ?
                 <div
-                    className={`w-full p-3 rounded text-xs text-center
-                        ${booking.status === 'cancelled' ? 'bg-red-200 border border-red-700 text-red-700 ' : '' }
-                        ${booking.status === 'completed' ? 'bg-green-200 border border-green-700 text-green-700 ' : ''}
-                    `}
+                    className={`${booking.status === 'pending' ? 'flex justify-between items-center' : 'flex justify-end mt-2'}`}
                 >
-                    {booking.status === 'cancelled' ? <p>This booking cannot be completed because its already <span className="font-bold">{booking.status}</span></p> : ''}
-                    {booking.status === 'completed' ? <p>This booking cannot be cancelled because its already <span className="font-bold">{booking.status}</span></p> : ''}
-                </div>
+                    <div className="flex justify-end">
+                        <button
+                            onClick={() => handleDelete(booking.id)}
+                        >
+                            <Trash />
+                        </button>
+                    </div>
 
-                :
-                <div
-                    className='flex justify-between items-center'
-                >
-
-                    <button
-                        onClick={() => handleDelete(booking.id)}
+                    <div
+                        className={`flex gap-2
+                            ${booking.status === 'completed' || booking.status === 'cancelled' ? 'hidden' : 'block'}
+                        `}
                     >
-                        <Trash />
-                    </button>
-
-                    <div className="flex gap-2">
                         <button
                             onClick={() => handleCancel(booking.id)}
                             className="px-4 py-2 transition-all duration-300 hover:text-red-700 hover:cursor-pointer"
@@ -93,7 +86,7 @@ export default function ActionBtns({booking, onSuccess}:pageProps) {
                         </button>
                     </div>
                 </div>
-            }
+
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import { useRoute } from '../../../vendor/tightenco/ziggy'
 
 import BarsThree from "@/components/bars-three";
 import Arrow from "@/components/arrow-icon";
@@ -9,10 +10,11 @@ type pageProps = {
 }
 
 export default function ViewCard({headline2, subtext2}:pageProps) {
+    const route = useRoute();
 
     return (
         <Link
-            href={'/view-bookings'}
+            href={route('view.bookings')}
         >
             <div className=" h-full border p-25 rounded-md hover:cursor-pointer transform transition-all duration-300 hover:border-[#DC143C] hover:-translate-y-3">
                 <div className="flex items-center flex-col gap-5 text-center">

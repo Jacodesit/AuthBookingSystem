@@ -35,6 +35,8 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+
+        // $currentPath = $request->route()->getName();
         $validated = $request->validate([
             'booking_title' => 'required|max:255',
             'booking_date' => 'required|date',
@@ -42,11 +44,28 @@ class BookingController extends Controller
             'notes' => 'required|string|max:1000',
         ]);
 
-        $validated['user_id'] = Auth::id();
+        $exists = Booking::where('booking_date', $validated['booking_date'])
+            ->where('booking_time', $validated['booking_time'])
+            ->whereIn('status', ['pending', 'completed'])
+            ->exists();
 
-        Booking::create($validated);
+        if($exists) {
+            return back()->withErrors([
+                'booking_date' => 'Sorry, this date is already booked choose another date.',
+                'booking_time' => 'Sorry, this time is already booked choose another time'
+            ]);
+        }
 
-        return redirect('/home');
+        Booking::create([
+            'user_id' => Auth::id(),
+            'booking_title' => $validated['booking_title'],
+            'booking_date' => $validated['booking_date'],
+            'booking_time' => $validated['booking_time'],
+            'notes' => $validated['notes'],
+            'status' => 'pending'
+        ]);
+
+        return redirect('/view-bookings');
     }
 
     /**
@@ -82,6 +101,18 @@ class BookingController extends Controller
             $validated['booking_time']
         )->format('H:i');
 
+        $exists = Booking::where('booking_date', $validated['booking_date'])
+            ->where('booking_time', $validated['booking_time'])
+            ->whereIn('status', ['pending', 'completed'])
+            ->where('id', '!=', $booking->id)
+            ->exists();
+
+        if($exists) {
+            return back()->withErrors([
+                'booking_date' => 'Sorry, this date is already booked choose another date.',
+                'booking_time' => 'Sorry, this time is already booked choose another time'
+            ]);
+        }
 
         $booking->update($validated);
 

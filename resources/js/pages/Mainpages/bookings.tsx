@@ -54,6 +54,10 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
 
     const [openModal, setOpenModal] = useState(false)
 
+    const handleSuccess = () => {
+        setOpenModal(false);
+    }
+
     return (
         <AuthLayout name={name}>
             <div className="mb-10 flex justify-between items-center">
@@ -120,7 +124,6 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
                                             />
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         ))}
@@ -129,8 +132,8 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
             </div>
             <AddBookingModal
                 openModal={openModal}
-                onClose={() => setOpenModal(true)}
-                onSuccess={onSuccess}
+                onClose={() => setOpenModal(false)}
+                onSuccess={handleSuccess}
             />
         </AuthLayout>
     )
