@@ -24,7 +24,8 @@ export default function LogoutBtn() {
                 Logout
             </button>
 
-            <ProfileBtn />
+            <ProfileBtn
+            />
         </div>
     )
 }

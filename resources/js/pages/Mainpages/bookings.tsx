@@ -58,9 +58,16 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
         setOpenModal(false);
     }
 
+    const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'completed' | 'cancelled'>('all');
+
+    const filteredStatus = bookings.filter(booking => {
+        if(statusFilter === 'all') return true;
+        return booking.status === statusFilter;
+    })
+
     return (
         <AuthLayout name={name}>
-            <div className="mb-10 flex justify-between items-center">
+            <div className="mb-5 flex justify-between items-center">
                 <div className="flex flex-col gap-1 text-3xl">
                     <p className="font-[Poppins] text-[#DC143C] font-semibold">{headline}</p>
                     <p className="text-sm text-gray-500">{subtext}</p>
@@ -77,6 +84,48 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
                 </div>
             </div>
 
+            <div className="flex gap-2 mb-5 justify-end">
+                {/* All */}
+                <button
+                    onClick={() => setStatusFilter('all')}
+                    className={`px-5 py-1 rounded transition-all duration-300 hover:cursor-pointer text-xs ${statusFilter === 'all' ?
+                        'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-blue-400 hover:text-white'
+                    }`}
+                >
+                    All
+                </button>
+
+                {/* Pending */}
+                <button
+                    onClick={() => setStatusFilter('pending')}
+                    className={`px-5 py-1 rounded transition-all duration-300 hover:cursor-pointer text-xs ${statusFilter === 'pending' ?
+                        'bg-amber-100 text-amber-700' : 'bg-gray-200 hover:bg-amber-400 hover:text-white'
+                    }`}
+                >
+                    Pending
+                </button>
+
+                {/* Completed */}
+                <button
+                    onClick={() => setStatusFilter('completed')}
+                    className={`px-5 py-1 rounded transition-all duration-300 hover:cursor-pointer text-xs ${statusFilter === 'completed' ?
+                        'bg-green-100 text-green-700' : 'bg-gray-200 hover:bg-green-400 hover:text-white'
+                    }`}
+                >
+                    Completed
+                </button>
+
+                {/* Cancelled */}
+                <button
+                    onClick={() => setStatusFilter('cancelled')}
+                    className={`px-5 py-1 rounded transition-all duration-300 hover:cursor-pointer text-xs ${statusFilter === 'cancelled' ?
+                        'bg-red-100 text-red-700' : 'bg-gray-200 hover:bg-red-400 hover:text-white'
+                    }`}
+                >
+                    Cancelled
+                </button>
+            </div>
+
             <div>
                 {bookings.length === 0 ?
                     <div className="h-96 flex items-center justify-center flex-col gap-5">
@@ -89,7 +138,7 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
                     </div>
                     :
                     <div className="grid grid-cols-3 gap-3">
-                        {bookings.map(booking => (
+                        {filteredStatus.map(booking => (
                             <div
                                 key={booking.id}
                                 className="shadow rounded-md flex bg-[#FAFAFA] p-2"
