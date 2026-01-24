@@ -4,10 +4,13 @@ import { CircleUserRound } from 'lucide-react';
 
 import ProfileModal from "./profile-modal";
 
-export default function ProfileBtn() {
+import type { Auth } from "@/types/booking";
 
+type pageProps = {
+}  & Auth
+
+export default function ProfileBtn({auth}:pageProps) {
     const [openProfile, setOpenProfile] = useState(false)
-
     return (
         <div>
             <button
@@ -18,6 +21,7 @@ export default function ProfileBtn() {
             </button>
 
             <ProfileModal
+                auth={auth}
                 openProfile={openProfile}
                 onClose={() => setOpenProfile(false)}
             />

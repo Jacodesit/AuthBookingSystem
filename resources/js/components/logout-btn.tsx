@@ -5,7 +5,12 @@ import { LogOut } from 'lucide-react';
 
 import ProfileBtn from "./profile-btn";
 
-export default function LogoutBtn() {
+import type { Auth } from "@/types/booking";
+
+type pageProps = {
+}  & Auth
+
+export default function LogoutBtn({auth}:pageProps) {
 
     const logout = () => {
         router.post('/logout')
@@ -25,6 +30,7 @@ export default function LogoutBtn() {
             </button>
 
             <ProfileBtn
+                auth={auth}
             />
         </div>
     )

@@ -13,6 +13,9 @@ export type Auth = {
     auth: {
         user: {
             name: string;
+            id: number;
+            email: string;
+            created_at: string;
         } | null
     }
 }
