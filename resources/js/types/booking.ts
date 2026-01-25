@@ -19,3 +19,9 @@ export type Auth = {
         } | null
     }
 }
+
+export type BookingCounts = {
+    pending_count: number;
+    completed_count: number;
+    cancelled_count: number;
+}

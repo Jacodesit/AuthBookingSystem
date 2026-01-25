@@ -15,7 +15,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = auth()->user()->bookings()->latest()->get();
+        $bookings = auth()->user()
+            ->bookings()->latest()->get();
         return Inertia::render('Mainpages/bookings', [
             'bookings' => $bookings
         ]);

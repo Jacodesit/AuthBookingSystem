@@ -67,16 +67,16 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
 
     return (
         <AuthLayout name={name}>
-            <div className="mb-5 flex justify-between items-center">
-                <div className="flex flex-col gap-1 text-3xl">
+            <div className="mb-5 lg:flex justify-between items-center">
+                <div className="flex flex-col gap-1 text-lg lg:text-3xl">
                     <p className="font-[Poppins] text-[#DC143C] font-semibold">{headline}</p>
                     <p className="text-sm text-gray-500">{subtext}</p>
                 </div>
 
-                <div>
+                <div className="flex justify-end">
                     <button
                         onClick={() => setOpenModal(true)}
-                        className="flex items-center gap-2 px-5 py-2 border rounded transition-all duration-300 hover:bg-black hover:text-white hover:cursor-pointer"
+                        className="flex items-center gap-2 px-5 py-2 border rounded transition-all duration-300 hover:bg-black hover:text-white hover:cursor-pointer text-xs mt-5 lg:mt-0 lg:text-base"
                     >
                         <PlusIcon />
                         Add booking
@@ -84,7 +84,7 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
                 </div>
             </div>
 
-            <div className="flex gap-2 mb-5 justify-end">
+            <div className="flex gap-2 mb-5 lg:justify-end">
                 {/* All */}
                 <button
                     onClick={() => setStatusFilter('all')}
@@ -137,17 +137,17 @@ export default function ViewBookings({name, auth, onSuccess}:pageProps) {
                         <p className="text-gray-500 items-center text-sm">You dont have a booking yet!</p>
                     </div>
                     :
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid lg:grid-cols-3 gap-3">
                         {filteredStatus.map(booking => (
                             <div
                                 key={booking.id}
-                                className="shadow rounded-md flex bg-[#FAFAFA] p-2"
+                                className="shadow rounded-md flex bg-[#FAFAFA] p-1 lg:p-2"
                             >
                                 <div className="flex justify-center items-center px-6">
                                     <CalendarIcon />
                                 </div>
                                 <div className="py-4 w-full pr-5">
-                                    <p className="text-lg font-medium font-[Poppins] mb-2">{booking.booking_title}</p>
+                                    <p className="text-sm lg:text-lg font-medium font-[Poppins] mb-2">{booking.booking_title}</p>
                                     <p className="text-xs">{formatDate(booking.booking_date)} at {formatTime(booking.booking_time)}</p>
                                     <hr className="my-3" />
                                     <div className="flex justify-between items-center">

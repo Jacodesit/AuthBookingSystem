@@ -20,10 +20,10 @@ export default function LogoutBtn({auth}:pageProps) {
     const currPath = window.location.pathname
 
     return (
-        <div className={`flex gap-5 items-center ${currPath === '/' ? 'hidden' : 'block' }`}>
+        <div className={`flex justify-center gap-5 items-center ${currPath === '/' ? 'hidden' : 'block' }`}>
             <button
                 onClick={logout}
-                className="border px-5 py-2 rounded flex gap-2 items-center transition-all duration-300 hover:bg-black hover:text-white hover:cursor-pointer"
+                className="text-xs lg:text-base border px-5 py-2 rounded flex gap-2 items-center transition-all duration-300 hover:bg-black hover:text-white hover:cursor-pointer"
             >
                 <LogOut size={15}/>
                 Logout

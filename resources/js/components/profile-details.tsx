@@ -19,7 +19,7 @@ export default function ProfileDetails() {
     : ''
 
     return (
-        <div className="p-4 shadow rounded-md bg-[#FAFAFA] mt-5 flex flex-col gap-10">
+        <div className="p-4 shadow rounded-md bg-[#FAFAFA] mt-5 flex flex-col gap-5">
             <div className="border-l-4 border-[#DC143C] rounded">
                 <p className="ml-1 font-semibold text-sm font-[Poppins]">User Details</p>
             </div>
@@ -33,14 +33,14 @@ export default function ProfileDetails() {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <p className="text-xl font-medium">{auth.auth.user?.name}</p>
+                        <p className="text-lg lg:text-xl font-medium">{auth.auth.user?.name}</p>
                         <p className="text-xs text-gray-500">ID: <span className="text-black">{auth.auth.user?.id}</span></p>
                     </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="grid lg:grid-cols-2 gap-2">
                     <div className="flex items-center gap-2 bg-[#FAFAFA] shadow p-3 flex-1 rounded">
-                        <div className="bg-gray-200 p-2 rounded">
+                        <div className="bg-gray-200 p-1 p-2 rounded">
                             <EmailIcon />
                         </div>
                         <div>

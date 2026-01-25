@@ -11,5 +11,4 @@ Route::get('/view-bookings', [BookingController::class, 'index'])->name('view.bo
 Route::put('/bookings/{booking}/status', [BookingController::class, 'updateStatus'])->name('booking.update.status');
 Route::get('/home', fn() => Inertia::render('Mainpages/home'))->middleware('auth');
 
-
 require __DIR__.'/settings.php';

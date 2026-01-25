@@ -18,19 +18,19 @@ export default function Home({name, auth, onSuccess}:pageProps) {
 
     return (
         <AuthLayout name={name}>
-            <div className="">
-                <div className="flex items-center gap-1 text-3xl">
+            <div className="mb-5 lg:mb-0">
+                <div className="flex items-center gap-1 text-lg lg:text-3xl">
                     <p className="font-[Poppins]">Welcome, </p>
                     <p className="text-[#DC143C] font-semibold">{auth.user?.name}</p>
                 </div>
 
                 <div>
-                    <p className="text-sm text-gray-500">{subtext}</p>
+                    <p className="text-xs lg:text-sm text-gray-500">{subtext}</p>
                 </div>
             </div>
 
-            <div className="h-[70vh] flex items-center justify-center relative z-100 ">
-                <div className="grid grid-cols-2 gap-5 px-50 ">
+            <div className="lg:h-[70vh] flex items-center justify-center relative z-100">
+                <div className="grid lg:grid-cols-2 gap-5 lg:px-50">
                     <AddCard
                         headline1={headline1}
                         subtext1={subtext1}

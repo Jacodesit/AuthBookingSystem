@@ -12,10 +12,10 @@ type pageProps = {
 export default function ProfileBtn({auth}:pageProps) {
     const [openProfile, setOpenProfile] = useState(false)
     return (
-        <div>
+        <div className="flex justify-center items-center">
             <button
                 onClick={() => setOpenProfile(true)}
-                className="hover:cursor-pointer"
+                className="transition-all duration-300 hover:cursor-pointer hover:text-blue-500"
             >
                 <CircleUserRound size={25} strokeWidth={1} />
             </button>

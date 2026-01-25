@@ -11,7 +11,7 @@ export default function AuthLayout({children, name}:LayoutProps) {
     return (
         <div className=''>
             <Header name={name}/>
-            <main className='px-25 pt-25 pb-17'>
+            <main className='px-10 pt-10 pb-10 lg:px-25 lg:pt-25 lg:pb-17'>
                 {children}
             </main>
         </div>

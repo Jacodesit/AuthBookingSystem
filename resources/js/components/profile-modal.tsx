@@ -1,8 +1,8 @@
 import ProfileHeader from "./ui/profile-header"
 import ProfileDetails from "./profile-details"
+import ProfileOverview from "./profile-overview"
 
 import type { Auth } from "@/types/booking"
-import ProfileOverview from "./profile-overview"
 
 type pageProps = {
     openProfile: boolean
