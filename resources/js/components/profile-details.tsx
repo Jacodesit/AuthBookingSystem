@@ -40,7 +40,7 @@ export default function ProfileDetails() {
 
                 <div className="grid lg:grid-cols-2 gap-2">
                     <div className="flex items-center gap-2 bg-[#FAFAFA] shadow p-3 flex-1 rounded">
-                        <div className="bg-gray-200 p-1 p-2 rounded">
+                        <div className="bg-gray-200 p-1 lg:p-2 rounded">
                             <EmailIcon />
                         </div>
                         <div>
